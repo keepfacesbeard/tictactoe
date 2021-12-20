@@ -2,6 +2,7 @@ let playerSymbol = "X";
 let turnCount = 0
 let gameOn = true;
 let hardMode = false;
+let previousMove = 0
 //create list of square objects
 const squares = []
 const createSquare = (num, state) => {
@@ -47,6 +48,7 @@ function playerTurn (clickedsquare) {
     if (gameOn == true){
         console.log('player chooses: ' + clickedsquare.id)
         let index = (parseInt(clickedsquare.id[6]));
+        previousMove = index;
         if (squares[index].state !== "blank") {
             alert("Square has already been played. Choose again");
         }
@@ -91,6 +93,80 @@ function easyComputer(){
         computerChoice();
     }
 };
+
+// function hardComputer() {
+//     console.log(previousMove);
+//     if (squares[4].state == "blank"){
+//         return 4;
+//     }
+//     else {
+//         if (previousMove == 0 || previousMove == 3 || previousMove == 6) {
+//             if (squares[previousMove+1].state == playerSymbol){
+//                 if (squares[previousMove+2].state == 'blank'){
+//                     return previousMove+2;
+//                 }
+//             }
+//             else if (squares[previousMove+2] == playerSymbol){
+//                 if (squares[previousMove+1].state == 'blank'){
+//                     return previousMove+1;
+//                 }
+//             }
+//         else if (previousMove == 1 || previousMove == 4 || previousMove ==7){
+//             if (squares[previousMove+1].state == playerSymbol){
+//                 if (squares[previousMove-1].state == 'blank'){
+//                     return previousMove-1;
+//                 }
+//             }
+//             else if (squares[previousMove-1].state == playerSymbol){
+//                 if (squares[previousMove+1].state == 'blank'){
+//                     return previousMove+1;
+//                 }
+//             }
+//             else {
+//                 return easyComputer();
+//             }
+//         }
+//         else if (previousMove == 2 || previousMove == 5 || previousMove ==8){
+//             if (squares[previousMove-1].state == playerSymbol){
+//                 if (squares[previousMove-2].state == 'blank'){
+//                     return previousMove-2;
+//                 }
+//             }
+//             else if (squares[previousMove-2].state == playerSymbol){
+//                 if (squares[previousMove+1].state == 'blank'){
+//                     return previousMove-1;
+//                 }
+//             }
+//             else {
+//                 return easyComputer()
+//             }
+//         }
+
+//         else {
+//             playerMove = previousMove
+//             let danger1 = 3;
+//             let danger2 = 6;
+//             if (previousMove + danger1 > 8 || previousMove + danger2 > 8) {
+//                 playerMove -= 9;
+//             }
+//             if (squares[playerMove+danger1].state == playerSymbol){
+//                 if (squares[playerMove+danger2].state == 'blank'){
+//                     return playerMove+danger2;
+//                     }
+//             }
+//             else if (squares[playerMove+danger2].state == playerSymbol){
+//                 if (squares[playerMove+danger1].state == 'blank'){
+//                     return playerMove+danger1;
+//                     }
+//             }
+//             else {
+//                 return easyComputer();
+//             }
+//         }
+//     }
+
+// }
+// }
 
 // function hardComputer() {
 //     //gottta grab that center square if available
