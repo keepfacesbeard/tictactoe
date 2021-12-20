@@ -1,0 +1,36 @@
+body {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header{
+    font-size: xx-large;
+}
+.subheader{
+    font-size: x-large;
+    margin-bottom: 1rem;
+}
+.gameboard {
+    display: grid;
+    width: 70%;
+    height: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+.controls {
+    margin-top: 1rem;
+}
+
+.gamesquare {
+    width: 95%;
+    padding-top: 100%;
+    background-color: rgb(212, 212, 212);
+    border-radius: 20px;
+    border: black 2px solid;
+    margin: 3px;
+    font-size: small;
+}
