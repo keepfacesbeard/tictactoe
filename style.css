@@ -16,6 +16,7 @@ body {
 }
 .gameboard {
     display: grid;
+    max-height: 70%;
     width: 70%;
     height: auto;
     grid-template-columns: 1fr 1fr 1fr;
