@@ -16,9 +16,9 @@ body {
 }
 .gameboard {
     display: grid;
-    max-height: 70%;
-    width: 70%;
-    height: auto;
+    max-height: 70vh;
+    min-width: 400px;
+    max-width: 2000px;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
@@ -33,4 +33,9 @@ body {
     border: black 2px solid;
     margin: 3px;
     font-size: small;
+}
+img{
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
