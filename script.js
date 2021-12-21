@@ -64,13 +64,14 @@ function playerTurn (clickedsquare) {
                 squares[index].markY();
                 clickedsquare.src = "./oh.png";
             }
+            ++turnCount;
+            --blankSquares;
+            checkVictory();
+            if ( turnCount < 5 && gameOn == true) {
+                computerTurn();
+            } 
         }
-        ++turnCount;
-        --blankSquares;
-        checkVictory();
-        if ( turnCount < 5 && gameOn == true) {
-            computerTurn();
-        } 
+
     }
 }
 
