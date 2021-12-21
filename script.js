@@ -214,6 +214,9 @@ function hardComputer() {
     if (squares[4].state == "blank"){
         return 4;
     }
+    else if (previousMove == 4 && turnCount == 1){
+        return 0;
+    }
     else {
         //go for the win if possible
         for (const combo of winningCombos){
