@@ -124,14 +124,17 @@ function checkVictory (){
     for (const combo of winningCombos){
         if (squares[combo[0]].state != "blank") {
             if ( squares[combo[0]].state == squares[combo[1]].state && squares[combo[1]].state == squares[combo[2]].state ) {
-                declareVictory(squares[combo[0]].state);
-                console.log("the victor is: " + squares[combo[0]].state);
                 victory = "victory";
+                gameOn = false;
+                setTimeout(() => { declareVictory(squares[combo[0]].state) }, 200); 
+                console.log("the victor is: " + squares[combo[0]].state);         
             }
         }
     }
     if (victory == "none" && blankSquares == 0){
-        declareDraw();
+        setTimeout(() => { declareDraw() }, 200);
+        gameOn = false;
+
     }
 
 }
@@ -139,7 +142,7 @@ function checkVictory (){
 
 function declareVictory(symbol) {
     if (playerSymbol == symbol) {
-        alert(`You've won! You bested the machine in ${turnCount} moves.`);
+        alert(`You've won! You bested the machine in ${turnCount} moves.`);    
     }
     else {
         alert("Computer wins!")
