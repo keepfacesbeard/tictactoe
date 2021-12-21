@@ -1,5 +1,7 @@
 let playerSymbol = "X";
+let computerSymbol = "O";
 let turnCount = 0
+let blankSquares = 9
 let gameOn = true;
 let hardMode = false;
 let previousMove = 0
@@ -32,9 +34,10 @@ const gameboard = document.getElementById("boardtemplate");
 
 function drawGameBoard() {
    for (let i=0; i<9; i++){
-       let square = document.createElement('div');
+       let square = document.createElement('img');
        square.classList.add('gamesquare');
        square.id = `square${i}`;
+       square.src = './blank.png';
        gameboard.appendChild(square);
     }
 }
@@ -55,16 +58,17 @@ function playerTurn (clickedsquare) {
         else {    
             if (playerSymbol == "X") {
                 squares[index].markX();
-                clickedsquare.innerText = "X";
+                clickedsquare.src = "./ex.png";
             }
             else if (playerSymbol == "O") {
                 squares[index].markY();
-                clickedsquare.innerText = "Y";
+                clickedsquare.src = "./oh.png";
             }
         }
         ++turnCount;
+        --blankSquares;
         checkVictory();
-        if ( gameOn == true) {
+        if ( turnCount < 5 && gameOn == true) {
             computerTurn();
         } 
     }
@@ -80,167 +84,6 @@ function computerChoice() {
     }
 }
 
-function easyComputer(){
-    let rando = Math.random();
-    let num = parseInt(rando.toString()[2]);
-    if ( num == 9 ){
-        computerChoice();
-    }
-    else if ( squares[num].state == "blank" ) {
-        return num;
-    }
-    else {
-        computerChoice();
-    }
-};
-
-// function hardComputer() {
-//     console.log(previousMove);
-//     if (squares[4].state == "blank"){
-//         return 4;
-//     }
-//     else {
-//         if (previousMove == 0 || previousMove == 3 || previousMove == 6) {
-//             if (squares[previousMove+1].state == playerSymbol){
-//                 if (squares[previousMove+2].state == 'blank'){
-//                     return previousMove+2;
-//                 }
-//             }
-//             else if (squares[previousMove+2] == playerSymbol){
-//                 if (squares[previousMove+1].state == 'blank'){
-//                     return previousMove+1;
-//                 }
-//             }
-//         else if (previousMove == 1 || previousMove == 4 || previousMove ==7){
-//             if (squares[previousMove+1].state == playerSymbol){
-//                 if (squares[previousMove-1].state == 'blank'){
-//                     return previousMove-1;
-//                 }
-//             }
-//             else if (squares[previousMove-1].state == playerSymbol){
-//                 if (squares[previousMove+1].state == 'blank'){
-//                     return previousMove+1;
-//                 }
-//             }
-//             else {
-//                 return easyComputer();
-//             }
-//         }
-//         else if (previousMove == 2 || previousMove == 5 || previousMove ==8){
-//             if (squares[previousMove-1].state == playerSymbol){
-//                 if (squares[previousMove-2].state == 'blank'){
-//                     return previousMove-2;
-//                 }
-//             }
-//             else if (squares[previousMove-2].state == playerSymbol){
-//                 if (squares[previousMove+1].state == 'blank'){
-//                     return previousMove-1;
-//                 }
-//             }
-//             else {
-//                 return easyComputer()
-//             }
-//         }
-
-//         else {
-//             playerMove = previousMove
-//             let danger1 = 3;
-//             let danger2 = 6;
-//             if (previousMove + danger1 > 8 || previousMove + danger2 > 8) {
-//                 playerMove -= 9;
-//             }
-//             if (squares[playerMove+danger1].state == playerSymbol){
-//                 if (squares[playerMove+danger2].state == 'blank'){
-//                     return playerMove+danger2;
-//                     }
-//             }
-//             else if (squares[playerMove+danger2].state == playerSymbol){
-//                 if (squares[playerMove+danger1].state == 'blank'){
-//                     return playerMove+danger1;
-//                     }
-//             }
-//             else {
-//                 return easyComputer();
-//             }
-//         }
-//     }
-
-// }
-// }
-
-// function hardComputer() {
-//     //gottta grab that center square if available
-//     if (squares[4].state == "blank"){
-//         console.log("hardcomp num choice: center square!")
-//         return 4;
-//     }
-//     else {
-//         console.log('no center available');
-//         for (let i = 0; i<9; i++){
-//             if (i<8 && squares[i].state == playerSymbol && squares[i+1].state == playerSymbol) {
-//                 if (i == 0 || i == 3 || i == 6) {
-//                     let num = i+2;
-//                     if (squares[num].state == "blank") {
-//                         return num;  
-//                     }
-//                 }
-//             else if (i < 7 && squares[i].state == playerSymbol && squares[i+2].state == playerSymbol){
-//                 if (i == 0 || i == 3 || i == 6) {
-//                     let num = i+1;
-//                     if (squares[num].state == "blank") {
-//                         return num;  
-//                     }
-//                 }
-//                 }
-//             }
-//             else {
-//                 if (i < 6 && squares[i].state == playerSymbol && squares[i+3].state == playerSymbol){
-//                     let num = i+6;
-//                     if (num > 8) {
-//                         num -= 9
-//                     }
-//                     if (squares[num].state == "blank"){
-//                         return num;  
-//                     }
-//                 }
-//                 else if (i < 3 && squares[i].state == playerSymbol && squares[i+6].state == playerSymbol){
-//                     let num = i+3;
-//                     if (num > 8) {
-//                         num -= 9
-//                     }
-//                     if (squares[num].state == "blank"){
-//                         return num;  
-//                     }
-//                 }
-//                 else {
-//                     return easyComputer();
-//                 }
-//             }
-//         }
-//     }
-// }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function computerTurn () {
     let index = computerChoice();
     console.log('the returned index is: ' + index)
@@ -249,45 +92,50 @@ function computerTurn () {
         if (gameOn == true){   
             if (playerSymbol == "X") {
                 squares[index].markY();
-                document.getElementById(`square${index}`).innerText = "Y";
+                document.getElementById(`square${index}`).src = "./oh.png";
             }
             else if (playerSymbol == "O") {
                 squares[index].markX();
-                document.getElementById(`square${index}`).innerText = "X";
+                document.getElementById(`square${index}`).innerText = "./ex.png";
             }
         }
+        --blankSquares;
         checkVictory();
     }
     else {
-        console.log('some kind of computer input error happening')
-       // computerTurn();
+        computerTurn();
     }
 }
 
+const winningCombos = [ 
+    [0, 1, 2],
+    [0, 3, 6],
+    [0, 4, 8],
+    [1, 4, 7],
+    [2, 5, 8],
+    [2, 4, 6],
+    [3, 4, 5],
+    [6, 7, 8],
+]
 
 
 function checkVictory (){
-    const winningCombos = [ 
-        [0, 1, 2],
-        [0, 3, 6],
-        [0, 4, 8],
-        [1, 4, 7],
-        [2, 5, 8],
-        [2, 4, 6],
-        [3, 4, 5],
-        [6, 7, 8],
-    ]
+    let victory = "none";
     for (const combo of winningCombos){
         if (squares[combo[0]].state != "blank") {
             if ( squares[combo[0]].state == squares[combo[1]].state && squares[combo[1]].state == squares[combo[2]].state ) {
-                    declareVictory(squares[combo[0]].state);
-                    console.log("the victor is: " + squares[combo[0]].state);
-                }
-        }  
+                declareVictory(squares[combo[0]].state);
+                console.log("the victor is: " + squares[combo[0]].state);
+                victory = "victory";
+            }
+        }
     }
-    if (gameOn == true) {
+    if (victory == "none" && blankSquares == 0){
+        declareDraw();
     }
+
 }
+
 
 function declareVictory(symbol) {
     if (playerSymbol == symbol) {
@@ -298,6 +146,11 @@ function declareVictory(symbol) {
     }
     gameOn = false;
     
+}
+function declareDraw() {
+    alert(`It's a Draw! Try again.`);
+    gameOn = false;
+  
 }
 
 function turnOffBoard() {
@@ -310,9 +163,10 @@ function turnOffBoard() {
 function resetBoard() {
     for (let i=0; i<9; i++){
         squares[i].reset();
-        document.getElementById(`square${i}`).innerText = " "
+        document.getElementById(`square${i}`).src = "./blank.png";
     }
     turnCount = 0;
+    blankSquares = 9
     gameOn = true;
 }
 
@@ -335,3 +189,53 @@ difficultyButton.addEventListener("click", toggleDifficulty);
 
 
 drawGameBoard();
+
+//computer ai stuffs:
+
+function easyComputer(){
+    let rando = Math.random();
+    let num = parseInt(rando.toString()[2]);
+    if ( num == 9 ){
+        computerChoice();
+    }
+    else if ( squares[num].state == "blank" ) {
+        console.log("square number " + num +" is free");
+        return num;
+    }
+    else {
+        computerChoice();
+    }
+};
+
+function hardComputer() {
+    if (squares[4].state == "blank"){
+        return 4;
+    }
+    else {
+        //go for the win if possible
+        for (const combo of winningCombos){
+            if (squares[combo[0]].state == computerSymbol && squares[combo[1]].state == computerSymbol && squares[combo[2]].state == "blank") {
+                return combo[2];
+            }
+            else if (squares[combo[0]].state == computerSymbol && squares[combo[2]].state == computerSymbol && squares[combo[1]].state == "blank") {
+                return combo[1];
+            }
+            else if (squares[combo[1]].state == computerSymbol && squares[combo[2]].state == computerSymbol && squares[combo[0]].state == "blank") {
+                return combo[0];
+            }
+//defense secondary
+        for (const combo of winningCombos){
+                if (squares[combo[0]].state == playerSymbol && squares[combo[1]].state == playerSymbol && squares[combo[2]].state == "blank") {
+                    return combo[2];
+                }
+                else if (squares[combo[0]].state == playerSymbol && squares[combo[2]].state == playerSymbol && squares[combo[1]].state == "blank") {
+                    return combo[1];
+                }
+                else if (squares[combo[1]].state == playerSymbol && squares[combo[2]].state == playerSymbol && squares[combo[0]].state == "blank") {
+                    return combo[0];
+                }
+            }
+        }
+        return easyComputer();
+    }
+}
